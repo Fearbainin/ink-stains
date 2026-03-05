@@ -15,6 +15,7 @@
             --LastMail-img: url('https://plus.unsplash.com/premium_photo-1661317272949-49d36343b252?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             --smoke-grey: #5b5f60; 
             --insta-heart: #981a24;
+            --puddle-img: url('https://images.unsplash.com/photo-1771079260484-79f9313aaf9e?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         }
 
         * { cursor: none !important; } 
@@ -252,6 +253,40 @@
             <input type="text" id="in-LastMail" placeholder="..." onkeydown="if(event.key==='Enter') addComment('LastMail')">
         </div>
     </article>
+
+     <article class="poem-card" id="puddle" onclick="togglePoem(event, 'puddle')" onmouseenter="setHover('var(----puddle-img)')" onmouseleave="resetHover()">
+        <h2 class="poem-title" style="color: #3b87ce;">Puddle</h2>
+        <div class="poem-body">
+            <div class="stanza">
+                <span class="poem-line">I was desperate to be a cradle — </span>
+                <span class="poem-line">my edges stretched to the curb's lip</span>
+                <span class="poem-line">Your clouds shimmered on my surface</span>
+                <span class="poem-line">And I dared to call my silt silver</span>
+            </div>
+            <div class="stanza">
+                <span class="poem-line">Two delightful hours of borrowed cerulean</span>
+                <span class="poem-line">then the wind shifted and forced a goodbye</span>
+                <span class="poem-line">You gathered your hem</span>
+                <span class="poem-line">As the sun</span>
+            </div>
+            <div class="stanza">
+                <span class="poem-line">But perhaps she stared then let it vanish</span>
+                <span class="poem-line">in that drawer she keeps for things unloved</span>
+                <span class="poem-line">Not important enough to frame for the desk</span>
+                <span class="poem-line">Just ghosts humming in the background</span>
+            </div>
+        </div>
+        <div class="drawer" onclick="event.stopPropagation()">
+            <div class="action-bar">
+                <button class="icon-btn" id="heart-puddle" onclick="toggleHeart('puddle')"><i class="fa-regular fa-heart"></i></button>
+                <span class="count-text" id="l-puddle">0</span>
+                <button class="share-btn" onclick="sharePoem('puddle')"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+            </div>
+            <div id="cl-puddle"></div>
+            <input type="text" id="puddle" placeholder="..." onkeydown="if(event.key==='Enter') addComment('LastMail')">
+        </div>
+    </article>
+
 
 </div>
 
