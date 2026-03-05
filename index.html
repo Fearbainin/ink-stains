@@ -15,7 +15,6 @@
             --LastMail-img: url('https://plus.unsplash.com/premium_photo-1661317272949-49d36343b252?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             --smoke-grey: #5b5f60; 
             --insta-heart: #981a24;
-            --puddle-img: url('https://images.unsplash.com/photo-1771079260484-79f9313aaf9e?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         }
 
         * { cursor: none !important; } 
@@ -48,7 +47,7 @@
         h1 { 
             font-family: 'Nosifer', cursive; 
             font-size: 3.5rem; 
-            color: #dcdcdc; 
+            color: #050363; 
             margin: 0; 
             text-shadow: 3px 3px 0px rgba(150, 150, 150, 0.2), 
                          -1px -1px 10px rgba(255, 255, 255, 0.1);
@@ -79,8 +78,17 @@
         /* CHANGED FROM :hover TO .open */
         .poem-card.open { 
             height: 650px; 
-            background: rgba(0,0,0,0.8);
+            background-color: transparent;
             overflow-y: auto; 
+        }
+        /*Hide scrollbar for Chrome, Safari and Opera*/
+        .poem-card::-webkit-scrollbar {
+            display: none;
+        }
+        /*Hide scrollbar for Firefox, IE and Edge*/
+        .poem-card {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         .poem-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #fff; font-style: italic; }
@@ -122,7 +130,7 @@
 
         .footer-wrapper { position: relative; z-index: 1; width: 100%; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; padding: 40px 0 20px; }
         .footer-content { max-width: 800px; margin: 0 auto; padding: 0 20px; text-align: center; }
-        .about-text { font-size: 1rem; color: #777; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
+        .about-text { font-size: 1rem; color: #657805a8; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
         .copyright { font-size: 0.7rem; letter-spacing: 3px; color: #444; text-transform: uppercase; }
 
         /* MOBILE RESPONSIVENESS */
@@ -253,40 +261,6 @@
             <input type="text" id="in-LastMail" placeholder="..." onkeydown="if(event.key==='Enter') addComment('LastMail')">
         </div>
     </article>
-
-     <article class="poem-card" id="puddle" onclick="togglePoem(event, 'puddle')" onmouseenter="setHover('var(----puddle-img)')" onmouseleave="resetHover()">
-        <h2 class="poem-title" style="color: #3b87ce;">Puddle</h2>
-        <div class="poem-body">
-            <div class="stanza">
-                <span class="poem-line">I was desperate to be a cradle — </span>
-                <span class="poem-line">my edges stretched to the curb's lip</span>
-                <span class="poem-line">Your clouds shimmered on my surface</span>
-                <span class="poem-line">And I dared to call my silt silver</span>
-            </div>
-            <div class="stanza">
-                <span class="poem-line">Two delightful hours of borrowed cerulean</span>
-                <span class="poem-line">then the wind shifted and forced a goodbye</span>
-                <span class="poem-line">You gathered your hem</span>
-                <span class="poem-line">As the sun</span>
-            </div>
-            <div class="stanza">
-                <span class="poem-line">But perhaps she stared then let it vanish</span>
-                <span class="poem-line">in that drawer she keeps for things unloved</span>
-                <span class="poem-line">Not important enough to frame for the desk</span>
-                <span class="poem-line">Just ghosts humming in the background</span>
-            </div>
-        </div>
-        <div class="drawer" onclick="event.stopPropagation()">
-            <div class="action-bar">
-                <button class="icon-btn" id="heart-puddle" onclick="toggleHeart('puddle')"><i class="fa-regular fa-heart"></i></button>
-                <span class="count-text" id="l-puddle">0</span>
-                <button class="share-btn" onclick="sharePoem('puddle')"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
-            </div>
-            <div id="cl-puddle"></div>
-            <input type="text" id="puddle" placeholder="..." onkeydown="if(event.key==='Enter') addComment('LastMail')">
-        </div>
-    </article>
-
 
 </div>
 
