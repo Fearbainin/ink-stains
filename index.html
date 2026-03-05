@@ -43,16 +43,16 @@
         }
 
         header { position: relative; z-index: 1; text-align: center; padding: 60px 0 20px; }
+        
         h1 { 
-         font-family: 'Nosifer', cursive; /* The dripping ink font */
-         font-size: 3.5rem; 
-        color: #dcdcdc; 
-        margin: 0; 
-        /* This creates a fuzzy 'bleeding ink' shadow effect */
-         text-shadow: 3px 3px 0px rgba(150, 150, 150, 0.2), 
-                 -1px -1px 10px rgba(255, 255, 255, 0.1);
+            font-family: 'Nosifer', cursive; 
+            font-size: 3.5rem; 
+            color: #dcdcdc; 
+            margin: 0; 
+            text-shadow: 3px 3px 0px rgba(150, 150, 150, 0.2), 
+                         -1px -1px 10px rgba(255, 255, 255, 0.1);
         }
-        /* UPDATED GRID CONTAINER */
+
         .container { 
             position: relative; 
             z-index: 1; 
@@ -64,7 +64,6 @@
             padding: 20px 0;
         }
 
-        /* UPDATED POEM CARD FOR GRID */
         .poem-card { 
             background: rgba(0,0,0,0.2);
             backdrop-filter: blur(5px);
@@ -72,13 +71,15 @@
             padding: 25px; 
             height: 200px; 
             overflow: hidden; 
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer !important; 
         }
 
-        .poem-card:hover { 
+        /* CHANGED FROM :hover TO .open */
+        .poem-card.open { 
             height: 650px; 
-            background: rgba(0,0,0,0.7);
-            overflow-y: auto; /* Internal scroll for long poems */
+            background: rgba(0,0,0,0.8);
+            overflow-y: auto; 
         }
 
         .poem-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 25px; color: #fff; font-style: italic; }
@@ -86,11 +87,13 @@
 
         .stanza { margin-bottom: 30px; }
 
-        .drawer { margin-top: 30px; padding: 25px; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); border-radius: 2px; opacity: 0; transition: 0.5s; }
-        .poem-card:hover .drawer { opacity: 1; }
+        .drawer { margin-top: 30px; padding: 25px; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); border-radius: 2px; opacity: 0; transition: 0.5s; cursor: auto; }
+        
+        /* CHANGED FROM :hover TO .open */
+        .poem-card.open .drawer { opacity: 1; }
 
         .action-bar { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
-        .icon-btn, .share-btn { background: none; border: none; color: white; font-size: 1.3rem; padding: 0; cursor: none; transition: 0.3s; }
+        .icon-btn, .share-btn { background: none; border: none; color: white; font-size: 1.3rem; padding: 0; cursor: pointer !important; transition: 0.3s; }
         .icon-btn.liked i { color: var(--insta-heart); font-weight: 900; }
         .share-btn:hover { color: #bbb; }
         .count-text { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; margin-left: -5px; }
@@ -100,7 +103,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05); color: #ccc;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .del-btn { background: none; border: none; color: #555; font-size: 0.8rem; padding: 5px; opacity: 0; transition: 0.3s; }
+        .del-btn { background: none; border: none; color: #555; font-size: 0.8rem; padding: 5px; opacity: 0; transition: 0.3s; cursor: pointer !important;}
         .comment-item:hover .del-btn { opacity: 1; }
         .del-btn:hover { color: var(--insta-heart); }
 
@@ -112,9 +115,9 @@
             border: 1px solid rgba(255,255,255,0.2); color: white;
             width: 40px; height: 40px; border-radius: 50%;
             display: none; align-items: center; justify-content: center;
-            transition: 0.3s;
+            transition: 0.3s; cursor: pointer !important;
         }
-        #scroll-top:hover { background: rgba(255,255,255,0.2); }
+        #scroll-top:hover { background: rgba(255,255,255,0.3); }
 
         .footer-wrapper { position: relative; z-index: 1; width: 100%; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; padding: 40px 0 20px; }
         .footer-content { max-width: 800px; margin: 0 auto; padding: 0 20px; text-align: center; }
@@ -123,12 +126,11 @@
 
         /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
-            .container {
-                grid-template-columns: 1fr;
-                max-width: 650px;
-                gap: 50px;
-            }
+            .container { grid-template-columns: 1fr; max-width: 650px; gap: 50px; }
             .poem-card { height: 180px; }
+            /* HIDE CURSOR ON MOBILE */
+            #custom-cursor { display: none !important; }
+            * { cursor: auto !important; }
         }
     </style>
 </head>
@@ -145,7 +147,7 @@
 
 <div class="container">
 
-    <article class="poem-card" id="narcosis" onmouseenter="setSmoke()" onmouseleave="setRestore()">
+    <article class="poem-card" id="narcosis" onclick="togglePoem(event, 'narcosis')" onmouseenter="setHover('var(--smoke-grey)')" onmouseleave="resetHover()">
         <h2 class="poem-title" style="color: #baa7a7;">Narcosis</h2>
         <div class="poem-body">
             <div class="stanza">
@@ -173,7 +175,7 @@
                 <span class="poem-line">My poet lies unconscious, how to wake her?</span>
             </div>
         </div>
-        <div class="drawer">
+        <div class="drawer" onclick="event.stopPropagation()">
             <div class="action-bar">
                 <button class="icon-btn" id="heart-narcosis" onclick="toggleHeart('narcosis')"><i class="fa-regular fa-heart"></i></button>
                 <span class="count-text" id="l-narcosis">0</span>
@@ -184,13 +186,13 @@
         </div>
     </article>
 
-    <article class="poem-card" id="secret" onmouseenter="setSecret()" onmouseleave="setRestore()">
+    <article class="poem-card" id="secret" onclick="togglePoem(event, 'secret')" onmouseenter="setHover('var(--secret-img)')" onmouseleave="resetHover()">
         <h2 class="poem-title" style="color: #fab1a0;">February 15</h2>
         <div class="poem-body">
             <span class="poem-line">How many nights did I rehearse saying your name?</span>
             <span class="poem-line">How many times have I rehearsed for 'the announcement'?</span>
             <span class="poem-line">How many hours has my brain written the story of our hearts?</span>
-            <span class="poem-line">But you don't know the plot, you've barely skimed the pages</span>
+            <span class="poem-line">But you don't know the plot, you've barely skimmed the pages</span>
             <span class="poem-line">You are writing a story for strangers' eyes, a carefully sold lie</span>
             <span class="poem-line">You lace your fingers through hands you'll never feel</span>
             <span class="poem-line">You keep me in the shadows, tucked behind a velvet curtain</span>
@@ -207,7 +209,7 @@
             <span class="poem-line">Is this genuine if I'm only ever 'just a friend' — a very close friend?</span>
             <span class="poem-line">Yes, I will be your gift when their roses are wilting and ribbons fraying</span>
         </div>
-        <div class="drawer">
+        <div class="drawer" onclick="event.stopPropagation()">
             <div class="action-bar">
                 <button class="icon-btn" id="heart-secret" onclick="toggleHeart('secret')"><i class="fa-regular fa-heart"></i></button>
                 <span class="count-text" id="l-secret">0</span>
@@ -217,7 +219,8 @@
             <input type="text" id="in-secret" placeholder="..." onkeydown="if(event.key==='Enter') addComment('secret')">
         </div>
     </article>
-        <article class="poem-card" id="LastMail" onmouseenter="setLastMail()" onmouseleave="setRestore()">
+        
+    <article class="poem-card" id="LastMail" onclick="togglePoem(event, 'LastMail')" onmouseenter="setHover('var(--LastMail-img)')" onmouseleave="resetHover()">
         <h2 class="poem-title" style="color: #412f2f;">The Last Parcel</h2>
         <div class="poem-body">
             <div class="stanza">
@@ -239,9 +242,9 @@
                 <span class="poem-line">Just ghosts humming in the background</span>
             </div>
         </div>
-        <div class="drawer">
+        <div class="drawer" onclick="event.stopPropagation()">
             <div class="action-bar">
-                <button class="icon-btn" id="LastMail" onclick="toggleHeart('LastMail')"><i class="fa-regular fa-heart"></i></button>
+                <button class="icon-btn" id="heart-LastMail" onclick="toggleHeart('LastMail')"><i class="fa-regular fa-heart"></i></button>
                 <span class="count-text" id="l-LastMail">0</span>
                 <button class="share-btn" onclick="sharePoem('LastMail')"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
             </div>
@@ -263,9 +266,12 @@
     const cursor = document.getElementById('custom-cursor');
     const scrollBtn = document.getElementById('scroll-top');
 
+    // ONLY SHOW DOT ON LARGE SCREENS
     document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
+        if(window.innerWidth > 900) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        }
     });
 
     window.onscroll = function() {
@@ -276,31 +282,65 @@
         }
     };
 
-    let blogData = JSON.parse(localStorage.getItem('inkstains_final')) || {
-        poems: { 'narcosis': { likes: 0, comments: [] }, 'secret': { likes: 0, comments: [] }, 'LastMail': { likes: 0, comments: [] } },
-        userLikes: {} 
-    };
+    // --- AUTOMATIC POEM SCANNER ---
+    let blogData = JSON.parse(localStorage.getItem('inkstains_auto')) || { poems: {}, userLikes: {} };
 
-    function setSmoke() {
-        document.body.style.backgroundImage = "none";
-        document.body.style.backgroundColor = "transparent";
+    document.querySelectorAll('.poem-card').forEach(card => {
+        let id = card.id;
+        if (!blogData.poems[id]) {
+            blogData.poems[id] = { likes: 0, comments: [] };
+        }
+    });
+    localStorage.setItem('inkstains_auto', JSON.stringify(blogData));
+
+    // --- UNIVERSAL BACKGROUND CHANGER ---
+    function setHover(bgValue) {
+        if(bgValue.includes('img') || bgValue.includes('url')) {
+            document.body.style.backgroundImage = bgValue;
+            document.body.style.backgroundColor = "transparent";
+        } else {
+            document.body.style.backgroundImage = "none";
+            document.body.style.backgroundColor = bgValue;
+        }
     }
 
-    function setSecret() {
-        document.body.style.backgroundImage = "var(--secret-img)";
-        document.body.style.backgroundColor = "transparent";
-    }
-
-    function setLastMail() {
-        document.body.style.backgroundImage = "var(--LastMail-img)";
-        document.body.style.backgroundColor = "transparent"
-    }
-
-    function setRestore() {
+    function resetHover() {
         document.body.style.backgroundImage = "var(--default-img)";
         document.body.style.backgroundColor = "transparent";
     }
 
+   // --- ACCORDION SYSTEM & BACKGROUND CLICK ---
+    function togglePoem(event, id) {
+        event.stopPropagation(); // Stops the tap from accidentally triggering the background click
+        
+        const clickedCard = document.getElementById(id);
+        const wasAlreadyOpen = clickedCard.classList.contains('open');
+        
+        // Shut all cards and snap them back to the top
+        document.querySelectorAll('.poem-card').forEach(c => {
+            c.classList.remove('open');
+            c.scrollTop = 0; 
+        });
+        
+        if (!wasAlreadyOpen) {
+            clickedCard.classList.add('open');
+        } else {
+            resetHover(); // Reset the main background if you tap to close
+        }
+    }
+
+    // Clicking anywhere outside the cards returns the page to default
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.poem-card')) {
+            document.querySelectorAll('.poem-card').forEach(c => {
+                c.classList.remove('open');
+                c.scrollTop = 0;
+            });
+            resetHover();
+        }
+    });
+
+    // --- LIKES & COMMENTS ---
     function updateUI() {
         for (let id in blogData.poems) {
             const poem = blogData.poems[id];
@@ -325,7 +365,7 @@
                 }
             }
         }
-        localStorage.setItem('inkstains_final', JSON.stringify(blogData));
+        localStorage.setItem('inkstains_auto', JSON.stringify(blogData));
     }
 
     function toggleHeart(id) {
