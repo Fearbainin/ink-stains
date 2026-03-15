@@ -69,8 +69,16 @@
             margin: 0;
             filter: url(#ink-drip); 
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5); 
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
+            transform-origin: top;
+            display: inline-block;
          }
 
+        h1 :hover{
+            transform: scaleY(1.2)translateY(10px);
+            filter: url(#ink-drip) drop-shadow(0px 20px 15px rgba(0,0,0,0.6));
+        }
+        
         .container { 
             position: relative; 
             z-index: 1; 
