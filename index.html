@@ -10,7 +10,7 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1541323421480-68513be3d209?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fGlua3xlbnwwfHwwfHx8MA%3D%3D">
     <meta property="og:url" content="https://fearbainin.github.io/ink-stains/">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2800/2800187.png">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/81/81060.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
@@ -51,32 +51,15 @@
             background: rgba(0, 0, 0, 0.6); z-index: 0; pointer-events: none;
         }
 
-        header { position: relative; z-index: 1; text-align: center; padding: 80px 0 40px; }
+        header { position: relative; z-index: 1; text-align: center; padding: 60px 0 20px; }
 
-        .pen-icon {
-            font-size: 3.5rem;
-            color: #d4d4d4;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-            transform: rotate(-45deg);
-            display: inline-block;
-        }
-        
         h1 { 
             font-family: 'Nosifer', cursive; 
-            font-size: 4.5rem; 
-            color: #03041a; 
-            margin: 0;
-            filter: url(#ink-drip); 
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5); 
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
-            transform-origin: top;
-            display: inline-block;
-         }
-
-        h1 :hover{
-            transform: scaleY(1.2)translateY(10px);
-            filter: url(#ink-drip) drop-shadow(0px 20px 15px rgba(0,0,0,0.6));
+            font-size: 3.5rem; 
+            color: #050363; 
+            margin: 0; 
+            text-shadow: 3px 3px 0px rgba(150, 150, 150, 0.2), 
+                         -1px -1px 10px rgba(255, 255, 255, 0.1);
         }
         
         .container { 
@@ -101,17 +84,16 @@
             cursor: pointer !important; 
         }
 
-        /* CHANGED FROM :hover TO .open */
         .poem-card.open { 
             height: 650px; 
             background-color: transparent;
             overflow-y: auto; 
         }
-        /*Hide scrollbar for Chrome, Safari and Opera*/
+        
         .poem-card::-webkit-scrollbar {
             display: none;
         }
-        /*Hide scrollbar for Firefox, IE and Edge*/
+        
         .poem-card {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -124,7 +106,6 @@
 
         .drawer { margin-top: 30px; padding: 25px; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); border-radius: 2px; opacity: 0; transition: 0.5s; cursor: auto; }
         
-        /* CHANGED FROM :hover TO .open */
         .poem-card.open .drawer { opacity: 1; }
 
         .action-bar { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
@@ -163,7 +144,6 @@
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; max-width: 650px; gap: 50px; }
             .poem-card { height: 180px; }
-            /* HIDE CURSOR ON MOBILE */
             #custom-cursor { display: none !important; }
             * { cursor: auto !important; }
         }
@@ -171,22 +151,11 @@
 </head>
 <body>
 
-    <svg style="position:absolute; width: 0; height: 0;">
-        <filter id="ink-drip">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18-7" result="ink" />
-            <feComposite in="SourceGraphic" in2="ink" operator="atop" />
-        </filter>
-    </svg>
-
 <div id="custom-cursor"></div>
 <div class="overlay"></div>
 <button id="scroll-top" onclick="window.scrollTo(0,0)"><i class="fa-solid fa-arrow-up"></i></button>
 
 <header>
-    <div class="pen-icon">
-        <i class="fa-solid fa-pen-nib"></i>
-    </div>
     <h1>Ink Stains</h1>
     <p class="about-text">Yes, yes, I know. This is not ink</p>
 </header>
@@ -404,15 +373,12 @@
 </div>
 
 <script>
-    const cursor = document.getElementById('custom-cursor');
     const scrollBtn = document.getElementById('scroll-top');
+    const cursor = document.getElementById('custom-cursor');
 
-    // ONLY SHOW DOT ON LARGE SCREENS
-    document.addEventListener('mousemove', e => {
-        if(window.innerWidth > 900) {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        }
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
     });
 
     window.onscroll = function() {
@@ -423,7 +389,6 @@
         }
     };
 
-    // --- AUTOMATIC POEM SCANNER ---
     let blogData = JSON.parse(localStorage.getItem('inkstains_auto')) || { poems: {}, userLikes: {} };
 
     document.querySelectorAll('.poem-card').forEach(card => {
@@ -434,7 +399,6 @@
     });
     localStorage.setItem('inkstains_auto', JSON.stringify(blogData));
 
-    // --- UNIVERSAL BACKGROUND CHANGER ---
     function setHover(bgValue) {
         if(bgValue.includes('img') || bgValue.includes('url')) {
             document.body.style.backgroundImage = bgValue;
@@ -450,14 +414,12 @@
         document.body.style.backgroundColor = "transparent";
     }
 
-   // --- ACCORDION SYSTEM & BACKGROUND CLICK ---
     function togglePoem(event, id) {
-        event.stopPropagation(); // Stops the tap from accidentally triggering the background click
+        event.stopPropagation(); 
         
         const clickedCard = document.getElementById(id);
         const wasAlreadyOpen = clickedCard.classList.contains('open');
         
-        // Shut all cards and snap them back to the top
         document.querySelectorAll('.poem-card').forEach(c => {
             c.classList.remove('open');
             c.scrollTop = 0; 
@@ -466,11 +428,10 @@
         if (!wasAlreadyOpen) {
             clickedCard.classList.add('open');
         } else {
-            resetHover(); // Reset the main background if you tap to close
+            resetHover(); 
         }
     }
 
-    // Clicking anywhere outside the cards returns the page to default
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.poem-card')) {
             document.querySelectorAll('.poem-card').forEach(c => {
@@ -481,7 +442,6 @@
         }
     });
 
-    // --- LIKES & COMMENTS ---
     function updateUI() {
         for (let id in blogData.poems) {
             const poem = blogData.poems[id];
