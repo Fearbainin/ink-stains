@@ -491,7 +491,7 @@
     }
 
     function deleteComment(poemId, commentIndex) {
-        if(confirm("Delete this stain?")) {
+        if(confirm("Delete comment?")) {
             blogData.poems[poemId].comments.splice(commentIndex, 1);
             updateUI();
         }
