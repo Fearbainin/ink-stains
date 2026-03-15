@@ -10,7 +10,7 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1541323421480-68513be3d209?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fGlua3xlbnwwfHwwfHx8MA%3D%3D">
     <meta property="og:url" content="https://fearbainin.github.io/ink-stains/">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/81/81060.png">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2800/2800187.png">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
             --LastMail-img: url('https://plus.unsplash.com/premium_photo-1661317272949-49d36343b252?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             --BeBrave-img: url('https://images.unsplash.com/photo-1555797487-a1f30b5d8d55?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             --LoveMe-img: url('https://images.unsplash.com/photo-1726498196128-d0d8552b9448?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGxvdmUlMjBtZSUyMHBsZWFzZXxlbnwwfHwwfHx8MA%3D%3D');
+            --winter-img: url('https://plus.unsplash.com/premium_photo-1673491311359-8adab3cdf9fa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHdpbnRlciUyMHRvJTIwc3ByaW5nfGVufDB8fDB8fHww');
             --smoke-grey: #5b5f60; 
             --insta-heart: #981a24;
         }
@@ -50,16 +51,25 @@
             background: rgba(0, 0, 0, 0.6); z-index: 0; pointer-events: none;
         }
 
-        header { position: relative; z-index: 1; text-align: center; padding: 60px 0 20px; }
+        header { position: relative; z-index: 1; text-align: center; padding: 80px 0 40px; }
+
+        .pen-icon {
+            font-size: 3.5rem;
+            color: #d4d4d4;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            transform: rotate(-45deg);
+            display: inline-block;
+        }
         
         h1 { 
             font-family: 'Nosifer', cursive; 
-            font-size: 3.5rem; 
-            color: #050363; 
-            margin: 0; 
-            text-shadow: 3px 3px 0px rgba(150, 150, 150, 0.2), 
-                         -1px -1px 10px rgba(255, 255, 255, 0.1);
-        }
+            font-size: 4.5rem; 
+            color: #03041a; 
+            margin: 0;
+            filter: url(#ink-drip); 
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5); 
+         }
 
         .container { 
             position: relative; 
@@ -153,11 +163,22 @@
 </head>
 <body>
 
+    <svg style="position:absolute; width: 0; height: 0;">
+        <filter id="ink-drip">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18-7" result="ink" />
+            <feComposite in="SourceGraphic" in2="ink" operator="atop" />
+        </filter>
+    </svg>
+
 <div id="custom-cursor"></div>
 <div class="overlay"></div>
 <button id="scroll-top" onclick="window.scrollTo(0,0)"><i class="fa-solid fa-arrow-up"></i></button>
 
 <header>
+    <div class="pen-icon">
+        <i class="fa-solid fa-pen-nib"></i>
+    </div>
     <h1>Ink Stains</h1>
     <p class="about-text">Yes, yes, I know. This is not ink</p>
 </header>
@@ -335,6 +356,33 @@
             </div>
             <div id="cl-LoveMe"></div>
             <input type="text" id="in-LoveMe" placeholder="..." onkeydown="if(event.key==='Enter') addComment('LoveMe')">
+        </div>
+    </article>
+
+    <article class="poem-card" id="winter" onclick="togglePoem(event, 'winter')" onmouseenter="setHover('var(--winter-img)')" onmouseleave="resetHover()">
+        <h2 class="poem-title" style="color: #f2ededf5;">Take me with you to spring?</h2>
+        <div class="poem-body">
+            <span class="poem-line">Would you still kiss my cracked, thirsty lips if love clung to them like frost?</span>
+            <span class="poem-line">Or will you turn away from the tundra you'll think I am, too barren to grow us?</span>
+            <span class="poem-line">Or will you let the snow that'll fall tomorrow kill the angels we made tonight?</span>
+            <span class="poem-line">Or will you let the hearth choke on its own ash, gasping for the heat that was used to us?</span>
+            <span class="poem-line">Or will you keep your hands in your pockets, refusing the warmth that mine offer?</span>
+            <span class="poem-line">Or will let the tracks we left in the drifts be filled by the gale before morning comes?</span>
+            <span class="poem-line">Or are we just a story that is only present in the dreams of winter hibernations?</span>
+            <span class="poem-line">Or are we just a coat that you'll shed off once the spring brings its warmth?</span>
+            <span class="poem-line">Or are we just a shiver you'll shake off, eager to embrace the breeze of sweet air?</span>
+            <span class="poem-line">Or are we just a fog you will happily let disappear in the crisp morning sun?</span>
+            <span class="poem-line">Or are we just a radiator you'll put away once the sun brings its warmth?</span>
+            <span class="poem-line">Take me with you to spring, please</span>
+          </div>
+        <div class="drawer" onclick="event.stopPropagation()">
+            <div class="action-bar">
+                <button class="icon-btn" id="heart-winter" onclick="toggleHeart('winter')"><i class="fa-regular fa-heart"></i></button>
+                <span class="count-text" id="l-winter">0</span>
+                <button class="share-btn" onclick="sharePoem('winter')"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+            </div>
+            <div id="cl-winter"></div>
+            <input type="text" id="in-winter" placeholder="..." onkeydown="if(event.key==='Enter') addComment('winter')">
         </div>
     </article>
 
